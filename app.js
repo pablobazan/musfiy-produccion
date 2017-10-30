@@ -2,6 +2,7 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var path = require('path');
 
 var app = express();
 
@@ -38,10 +39,14 @@ app.use('/api', user_routes);
 app.use('/api', artist_routes);
 app.use('/api', album_routes);
 app.use('/api', song_routes);
-app.get('/prueba', function(req, res)
-{
-	res.status(200).send({message: "Bienvenido al curso"});
-})
+
+app.get('*', function(req, res, next)
+{ //funcion para redirrecionar en caso de no ser /api
+
+	res.sendFile(path.resolve('client/index.html'));
+
+});
+
 //app.use('/api', album_routes)
 //app.use('/api', image_routes)
 
